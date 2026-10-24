@@ -1,13 +1,17 @@
-from fastapi import FastAPI
+from fastapi import APIRouter, FastAPI
 
 app = FastAPI(title="aws-learning-fastapi")
+api = APIRouter(prefix="/api")
 
 
-@app.get("/health")
+@api.get("/health")
 def health():
     return {"status": "ok"}
 
 
-@app.get("/hello")
+@api.get("/hello")
 def hello(name: str = "world"):
     return {"message": f"Hello, {name}!"}
+
+
+app.include_router(api)
